@@ -1,3 +1,6 @@
+const sound = new Audio("https://www.soundsnap.com/audio/mp3/205683/EFX%20EXT%20Human%20Fart%2002.mp3");
+sound.volume = 1;
+
 const dots = [];
 
 const setColor = () => {
@@ -49,12 +52,12 @@ function draw() {
 function reset() {
   background('white');
   dots.length = 0;
-  createdots();
-
 }
 
 function mouseClicked() {
   reset();
+  sound.play();
+  setTimeout(function() { sound.pause(); sound.currentTime=0 }, 500)
 }
 
 function windowResized() {

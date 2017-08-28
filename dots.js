@@ -1,6 +1,6 @@
-const bacteria = [];
+const dots = [];
 
-setColor = () => {
+const setColor = () => {
   const randomColor = [random(255), random(255), random(255)];
   fill(color(randomColor));
 }
@@ -16,24 +16,22 @@ const hasCollision = (circleA, circleB) => {
   return (distance < circleA.r + circleB.r);
 }
 
-createBacterium = () => {
+const createDots = () => {
   const angle = random(Math.PI * 2);
   const diameter = random(10, 20);
   const startPoint = { x: random(windowWidth), y: random(windowHeight) };
   const currentBoundingBox = { x: startPoint.x, y: startPoint.y, r: diameter / 2 };
   const startArea = { x: windowWidth / 2, y: windowHeight / 2, r: windowWidth < windowHeight ? windowWidth * 0.4 : windowHeight * 0.4 };
-  if (bacteria.some(e => hasCollision(e, currentBoundingBox))) {
+  if (dots.some(e => hasCollision(e, currentBoundingBox))) {
     console.log('nooooo!');
   } else {
-    // if (hasCollision(startArea, currentBoundingBox)) {
-      push();
-      setColor();
-      translate(startPoint.x, startPoint.y);
-      rotate(angle);
-      const bacterium = rect(0, 0, 2, diameter / 2, 2);
-      bacteria.push(currentBoundingBox);
-      pop();
-    // }
+    push();
+    setColor();
+    translate(startPoint.x, startPoint.y);
+    rotate(angle);
+    rect(0, 0, 2, diameter / 2, 2);
+    dots.push(currentBoundingBox);
+    pop();
   }
 }
 
@@ -42,27 +40,16 @@ function setup() {
   frameRate(600);
   rectMode(RADIUS);
   noStroke();
-  noLoop();
-}
-
-const createBacteria = () => {
-  let i = 0;
-  console.log(performance.now());
-  while(i < 20000) {
-    createBacterium();
-    i++;
-  }
-  console.log(performance.now());
 }
 
 function draw() {
-  createBacteria();
+  createDots();
 }
 
 function reset() {
   background('white');
-  bacteria.length = 0;
-  createBacteria();
+  dots.length = 0;
+  createdots();
 
 }
 
